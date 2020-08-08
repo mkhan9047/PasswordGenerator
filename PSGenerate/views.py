@@ -16,15 +16,17 @@ def blog(request):
 
 
 def generated_password(request):
-    main_word = 'abcdefghijklmnopqrstuvwxyz'
+    main_word = list('abcdefghijklmnopqrstuvwxyz')
     password = ''
-    length = request.GET.get('length')
+    length = request.GET.get('length', 6)
     is_upper_case = request.GET.get('uppercase')
     is_lower_case = request.GET.get('lowercase')
+    is_special_char = request.GET.get('special')
+    if is_special_char:
+        main_word.extend(list('#$%&()*+,-./:;<=>?@[\]^_`{|}~'))
+    if not is_lower_case and is_upper_case:
+        main_word.extend(list('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+
     for i in range(int(length)):
         password += random.choice(main_word)
     return render(request, 'generated_password.html', {'password': password})
-
-
-
-
