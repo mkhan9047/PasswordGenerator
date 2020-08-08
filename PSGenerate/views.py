@@ -20,13 +20,20 @@ def generated_password(request):
     password = ''
     length = request.GET.get('length', 6)
     is_upper_case = request.GET.get('uppercase')
-    is_lower_case = request.GET.get('lowercase')
+    is_numbers = request.GET.get('number')
     is_special_char = request.GET.get('special')
+
     if is_special_char:
         main_word.extend(list('#$%&()*+,-./:;<=>?@[\]^_`{|}~'))
-    if not is_lower_case and is_upper_case:
+    if is_upper_case:
         main_word.extend(list('ABCDEFGHIJKLMNOPQRSTUVWXYZ'))
+    if is_numbers:
+        main_word.extend(list('1234567890'))
 
     for i in range(int(length)):
         password += random.choice(main_word)
     return render(request, 'generated_password.html', {'password': password})
+
+
+def author(request):
+    return render(request, 'about.html')

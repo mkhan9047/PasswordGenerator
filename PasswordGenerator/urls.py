@@ -21,6 +21,7 @@ urlpatterns = [
     # url('', admin.site.urls),
     url('blog', views.blog),
     url('generatedpassword', views.generated_password, name='password'),
-    url('', views.home),
+    url('authoer', views.author, name='author'),
+    url('', views.home, name='home'),
 
 ]
