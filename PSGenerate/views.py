@@ -18,7 +18,10 @@ def blog(request):
 def generated_password(request):
     main_word = 'abcdefghijklmnopqrstuvwxyz'
     password = ''
-    for i in range(10):
+    length = request.GET.get('length')
+    is_upper_case = request.GET.get('uppercase')
+    is_lower_case = request.GET.get('lowercase')
+    for i in range(int(length)):
         password += random.choice(main_word)
     return render(request, 'generated_password.html', {'password': password})
 
